@@ -48,8 +48,8 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/age")
-    public List<Student> getStudentAge(@RequestParam int age) {
+    @GetMapping
+    public List<Student> getStudentAge(@RequestParam("age") int age) {
         return studentService.ageStudent(age);
     }
 
