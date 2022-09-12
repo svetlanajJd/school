@@ -49,9 +49,8 @@ public class StudentController {
     }
 
     @GetMapping
-    public List<Student> getStudentAge(@RequestParam("age") int age) {
-        return studentService.ageStudent(age);
+    public List<Student> getFoundAge(@RequestParam("minAge") int minAge, @RequestParam("maxAge") int maxAge) {
+        return studentService.findAge(minAge, maxAge);
     }
-
 
 }
