@@ -51,8 +51,13 @@ public class FacultyController {
     }
 
     @GetMapping
-    public List<Faculty> getStudentColor(@RequestParam("color") String color) {
-        return facultyService.colorFaculty(color);
+    public List<Faculty> getNameOrColor(@RequestParam("nameOrColor") String nameOrColor) {
+        return facultyService.nameOrColorFaculty(nameOrColor,nameOrColor);
+    }
+
+    @GetMapping("/faculty")
+    public List<Student> getName(@RequestBody Faculty faculty) {
+        return facultyService.namesStudents(faculty);
     }
 
 

@@ -2,9 +2,11 @@ package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
@@ -23,16 +25,27 @@ public class FacultyService {
     }
 
     public Faculty updateFaculty(Faculty studentFaculty) {
-        return facultyRepository.save(studentFaculty);
+        Optional<Faculty> facultyUpdate=facultyRepository.findById(studentFaculty.getId());
+        if (facultyUpdate.isPresent()) {
+            facultyUpdate.get().setId(studentFaculty.getId());
+            facultyUpdate.get().setName(studentFaculty.getName());
+            facultyUpdate.get().setColor(studentFaculty.getColor());
+            return facultyRepository.save(facultyUpdate.get());
+        }
+        return null;
     }
 
     public void deleteFaculty(Long id) {
         facultyRepository.deleteById(id);
     }
 
-    public List<Faculty> colorFaculty(String color) {
-        return facultyRepository.findByColorIgnoreCase(color);
+    public List<Faculty> nameOrColorFaculty(String color, String name) {
+        return facultyRepository.findByNameOrColorIgnoreCase(name,color);
     }
-}
+
+    public List<Student> namesStudents (Faculty faculty) {
+           return facultyRepository.findByNameIgnoreCase(faculty.getName());
+    }
+ }
 
     

@@ -2,11 +2,11 @@ package ru.hogwarts.school.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @RequestMapping("student")
 @RestController
@@ -53,4 +53,9 @@ public class StudentController {
         return studentService.findAge(minAge, maxAge);
     }
 
+
+    @GetMapping("/name")
+    public Student getName(@RequestParam("name") String name) {
+        return studentService.nameStudent(name);
+    }
 }
