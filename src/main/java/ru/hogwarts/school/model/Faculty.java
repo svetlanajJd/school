@@ -14,13 +14,18 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty")
     private List<Student> students;
 
-    public Faculty(Long id, String name, String color) {
+
+
+    public Faculty(Long id, String name, String color,List<Student> students) {
         this.id = id;
         this.name = name;
         this.color = color;
-
+        this.students=students;
     }
 
+    public List<Student> getStudents() {
+        return students;
+    }
     public Faculty() {
     }
 

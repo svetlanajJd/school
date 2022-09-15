@@ -43,7 +43,7 @@ public class StudentService {
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
 
-    public Student nameStudent (String name) {
-        return studentRepository.findByNameIgnoreCase(name);
+    public Faculty nameStudent (Long id) {
+        return studentRepository.findById(id).get().getFaculty();
     }
 }

@@ -54,8 +54,8 @@ public class StudentController {
     }
 
 
-    @GetMapping("/name")
-    public Student getName(@RequestParam("name") String name) {
-        return studentService.nameStudent(name);
+    @GetMapping("{id}/students")
+    public Faculty getName(@PathVariable Long id) {
+        return studentService.nameStudent(id);
     }
 }

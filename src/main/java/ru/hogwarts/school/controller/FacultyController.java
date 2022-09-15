@@ -52,13 +52,13 @@ public class FacultyController {
 
     @GetMapping
     public List<Faculty> getNameOrColor(@RequestParam("nameOrColor") String nameOrColor) {
-        return facultyService.nameOrColorFaculty(nameOrColor,nameOrColor);
+        return facultyService.nameOrColorFaculty(nameOrColor);
     }
 
-    @GetMapping("/faculty")
-    public List<Student> getName(@RequestBody Faculty faculty) {
-        return facultyService.namesStudents(faculty);
+    @GetMapping("{id}/faculty")
+    public ResponseEntity<Student> getStudentsFaculty(@PathVariable Long id) {
+        facultyService.studentsOfFaculty(id);
+        return ResponseEntity.ok().build();
     }
-
 
 }

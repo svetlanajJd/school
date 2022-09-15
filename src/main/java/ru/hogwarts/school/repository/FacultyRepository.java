@@ -9,8 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface FacultyRepository extends JpaRepository<Faculty,Long> {
-    List<Faculty> findByNameOrColorIgnoreCase(String name, String color);
-
-    List<Student> findByNameIgnoreCase(String name);
+    List<Faculty> findByNameIgnoreCaseOrColorIgnoreCase(String name,String color);
 
 }

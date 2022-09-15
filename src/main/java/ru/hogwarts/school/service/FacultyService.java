@@ -25,7 +25,7 @@ public class FacultyService {
     }
 
     public Faculty updateFaculty(Faculty studentFaculty) {
-        Optional<Faculty> facultyUpdate=facultyRepository.findById(studentFaculty.getId());
+        Optional<Faculty> facultyUpdate = facultyRepository.findById(studentFaculty.getId());
         if (facultyUpdate.isPresent()) {
             facultyUpdate.get().setId(studentFaculty.getId());
             facultyUpdate.get().setName(studentFaculty.getName());
@@ -39,13 +39,13 @@ public class FacultyService {
         facultyRepository.deleteById(id);
     }
 
-    public List<Faculty> nameOrColorFaculty(String color, String name) {
-        return facultyRepository.findByNameOrColorIgnoreCase(name,color);
+    public List<Faculty> nameOrColorFaculty(String name) {
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, name);
     }
 
-    public List<Student> namesStudents (Faculty faculty) {
-           return facultyRepository.findByNameIgnoreCase(faculty.getName());
+    public List<Student> studentsOfFaculty(Long id) {
+        return facultyRepository.findById(id).get().getStudents();
     }
- }
+    }
 
     
