@@ -1,13 +1,15 @@
-package ru.hogwarts.school.controller;
+package ru.hogwarts.school;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.hogwarts.school.controller.StudentController;
-import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -17,25 +19,28 @@ public class StudentControllerTest {
 
     @Autowired
     private StudentController studentController;
-
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Test
+    public void contextLoads() throws Exception {
+        Assertions.assertThat(studentController).isNotNull();
+    }
 
     @Test
     public void testGetStudent() throws Exception {
         Assertions.
-                assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", String.class)).
+                assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/", String.class)).
                 isNotNull();
     }
 
     @Test
-    public void testUpdateStudent() throws Exception {
+    public void testCreateStudent() throws Exception {
         Student student = new Student();
         student.setName("nameTest");
         student.setAge(15);
         Assertions.
-                assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/student", student, String.class)).
+                assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/student/", student, String.class)).
                 isNotNull();
     }
-   }
+}

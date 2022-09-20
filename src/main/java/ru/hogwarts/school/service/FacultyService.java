@@ -40,12 +40,12 @@ public class FacultyService {
     }
 
     public List<Faculty> nameOrColorFaculty(String name) {
-        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, name);
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name);
     }
 
-//    public List<Student> studentsOfFaculty(Long id) {
-//        return facultyRepository.findById(id).get().getStudents();
-//    }
+    public List<Student> studentsOfFaculty(Long id) {
+        return facultyRepository.findById(id).get().getStudents();
+    }
     }
 
     
