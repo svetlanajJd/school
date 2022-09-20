@@ -18,8 +18,6 @@ import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.AvatarService;
 import ru.hogwarts.school.service.FacultyService;
 import ru.hogwarts.school.service.StudentService;
-
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +72,7 @@ public class FacultyControllerTest {
 
         when(facultyRepository.save(any(Faculty.class))).thenReturn(faculty);
         when(facultyRepository.findById(eq(id))).thenReturn(Optional.of(faculty));
-        when(facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(eq(color))).thenReturn(List.of(faculty));
+        when(facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(eq(color),eq(color))).thenReturn(List.of(faculty));
 
 
         mockMvc.perform(MockMvcRequestBuilders
