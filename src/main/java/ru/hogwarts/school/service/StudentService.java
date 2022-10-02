@@ -1,6 +1,7 @@
 package ru.hogwarts.school.service;
 
 import org.springframework.stereotype.Service;
+//import ru.hogwarts.school.inter.ExpenseById;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -11,9 +12,11 @@ import java.util.Optional;
 @Service
 public class StudentService {
     private final StudentRepository studentRepository;
+//    private ExpenseById expenseById;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
+//        this.expenseById=expenseById;
     }
 
     public Student createStudent(Student student) {
@@ -45,5 +48,17 @@ public class StudentService {
 
     public Faculty nameStudent (Long id) {
         return studentRepository.findById(id).get().getFaculty();
+    }
+
+    public Integer getStudentById(){
+       return studentRepository.getStudentById();
+    }
+
+    public Integer getStudentByAge(){
+        return studentRepository.getStudentByAge();
+    }
+
+    public List<Student> getStudentByOffset(){
+        return studentRepository.getStudentByOffset();
     }
 }

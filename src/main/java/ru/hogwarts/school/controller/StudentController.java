@@ -58,4 +58,18 @@ public class StudentController {
     public Faculty getName(@PathVariable Long id) {
         return studentService.nameStudent(id);
     }
+
+    @GetMapping("/expenses-by-id")
+    public  Integer getExpensesById(){
+        return studentService.getStudentById();
+    }
+
+    @GetMapping("/expenses-by-age")
+    public Integer getExpensesByAge() {
+        return studentService.getStudentByAge();
+    }
+        @GetMapping("/expenses-by-offset")
+        public List<Student> getStudentByOffset(){
+            return studentService.getStudentByOffset();
+    }
 }
