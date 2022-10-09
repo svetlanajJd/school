@@ -72,4 +72,14 @@ public class StudentController {
         public List<Student> getStudentByOffset(){
             return studentService.getStudentByOffset();
     }
+
+    @GetMapping("/studentA")
+    public List<String> studentA(){
+        return studentService.studentA();
+    }
+
+    @GetMapping("/ageAverage")
+    public double ageAverage(){
+        return studentService.ageAverage();
+    }
 }

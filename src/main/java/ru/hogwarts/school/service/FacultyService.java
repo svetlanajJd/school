@@ -5,6 +5,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.FacultyRepository;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,12 +41,21 @@ public class FacultyService {
     }
 
     public List<Faculty> nameOrColorFaculty(String name) {
-        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name,name);
+        return facultyRepository.findByNameIgnoreCaseOrColorIgnoreCase(name, name);
     }
 
     public List<Student> studentsOfFaculty(Long id) {
         return facultyRepository.findById(id).get().getStudents();
     }
+
+    public String nameLongest() {
+        return facultyRepository.findAll().stream()
+                .map(Faculty::getName)
+                .max(Comparator.comparingInt(String::length))
+                .toString();
     }
+
+
+}
 
     

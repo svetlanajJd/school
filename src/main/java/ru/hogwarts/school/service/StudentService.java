@@ -4,19 +4,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 //import ru.hogwarts.school.inter.ExpenseById;
-import org.springframework.web.client.RestTemplate;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 @Service
 
@@ -25,6 +21,7 @@ public class StudentService {
     @Autowired
     private final StudentRepository studentRepository;
     Logger logger = LoggerFactory.getLogger(StudentService.class);
+
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
@@ -65,11 +62,6 @@ public class StudentService {
         return studentRepository.findByAgeBetween(minAge, maxAge);
     }
 
-//    public String getPort() {
-//        logger.debug("port 8080");
-//        return "port 8080";
-//    }
-
     public Faculty nameStudent(Long id) {
         return studentRepository.findById(id).get().getFaculty();
     }
@@ -86,4 +78,28 @@ public class StudentService {
     public List<Student> getStudentByOffset() {
         return studentRepository.getStudentByOffset();
     }
+
+    @Value("${server.port}")
+    private String serverPort;
+
+    public String getPort() {
+        logger.debug(serverPort);
+        return serverPort;
+    }
+
+    public List<String> studentA() {
+        return studentRepository.findAll().stream()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("А"))
+                .sorted().toList();
+    }
+
+    public double ageAverage() {
+        return studentRepository.findAll().stream()
+                .mapToDouble(Student::getAge)
+                .average().orElseThrow();
+    }
+
+
 }
