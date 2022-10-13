@@ -6,6 +6,7 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RequestMapping("student")
@@ -81,5 +82,15 @@ public class StudentController {
     @GetMapping("/ageAverage")
     public double ageAverage(){
         return studentService.ageAverage();
+    }
+
+    @GetMapping("/printStudentsThread")
+    public void printStudentsWithThread(){
+        studentService.prinStudentsWithThread();
+    }
+
+    @GetMapping("/printStudentWithThreadSynchronized")
+    public void printStudentWithThreadSynchronized(){
+        studentService.prinStudentsWithThreadSynchronized();
     }
 }

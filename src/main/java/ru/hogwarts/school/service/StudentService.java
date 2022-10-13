@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 //import ru.hogwarts.school.inter.ExpenseById;
 import ru.hogwarts.school.model.Faculty;
@@ -12,7 +13,6 @@ import ru.hogwarts.school.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.OptionalDouble;
 
 @Service
 
@@ -101,5 +101,35 @@ public class StudentService {
                 .average().orElseThrow();
     }
 
+    private void printStudentWithThread(List<Student> students) {
+        for (Student student : students) {
+//            student.getName();
+            logger.info(student.getName());
+        }
+//        return students;
+    }
+
+    public void prinStudentsWithThread() {
+        List<Student> students = studentRepository.findAll(PageRequest.of(0, 6)).getContent();
+
+       printStudentWithThread(students.subList(0, 2));
+     new Thread(() -> printStudentWithThread(students.subList(2, 4))).start();
+        new Thread(() -> printStudentWithThread(students.subList(4, 6))).start();
+
+    }
+
+    private synchronized void printStudentWithThreadSynchronized (List<Student> students) {
+        for (Student student : students) {
+            logger.info(student.getName());
+        }
+    }
+
+    public void prinStudentsWithThreadSynchronized() {
+        List<Student> students = studentRepository.findAll(PageRequest.of(0, 6)).getContent();
+        printStudentWithThread(students.subList(0, 2));
+        new Thread(() -> printStudentWithThreadSynchronized(students.subList(2, 4))).start();
+        new Thread(() -> printStudentWithThreadSynchronized(students.subList(4, 6))).start();
+    }
 
 }
+
